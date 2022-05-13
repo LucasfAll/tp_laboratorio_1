@@ -297,9 +297,8 @@ int menuOrder()
 {
 	int option;
 
-
-	    printf("   1- Ordenar Ascendente \n");
-	    printf("   2-Ordenar Descendente \n");
+		printf("   0-Ordenar Descendente \n");
+	    printf("   1-Ordenar Ascendente \n");
 
 	    printf("Ingrese opcion: ");
 	    scanf("%d", &option);
@@ -313,47 +312,36 @@ int sortPassengersByLastName(sPassenger* listPassenger, int len, int order)
 	int todoOk = 0;
 	sPassenger aux;
 
-	switch(menuOrder())
-	{
-	case 1:
-		order = 1;
+
 		for(int i=0; i<len-1; i++)
 		{
 			for(int j= i+1; j<len; j++)
 			{
 
-				if(strcmp(listPassenger[i].lastname, listPassenger[j].lastname)>0 || (strcmp(listPassenger[i].lastname, listPassenger[j].lastname) ==0 && listPassenger[i].typePassenger > listPassenger[j].typePassenger))
+				if(order == 1)
 				{
-					aux = listPassenger[i];
-					listPassenger[i] = listPassenger[j];
-					listPassenger[j] = aux;
+					if((strcmp(listPassenger[i].lastname, listPassenger[j].lastname)>0) || (strcmp(listPassenger[i].lastname, listPassenger[j].lastname) ==0 && listPassenger[i].typePassenger > listPassenger[j].typePassenger))
+					{
+						aux = listPassenger[i];
+						listPassenger[i] = listPassenger[j];
+						listPassenger[j] = aux;
+					}
+				}
+				else
+				{
+					if(order == 0)
+					{
+						if(strcmp(listPassenger[i].lastname, listPassenger[j].lastname)<0 || (strcmp(listPassenger[i].lastname, listPassenger[j].lastname) ==0 && listPassenger[i].typePassenger < listPassenger[j].typePassenger))
+						{
+							aux = listPassenger[i];
+							listPassenger[i] = listPassenger[j];
+							listPassenger[j] = aux;
+						}
+					}
 				}
 			}
 		}
-		todoOk=1;
 		printPassengers(listPassenger,len);
-		break;
-	case 2:
-		order = 0;
-		for(int i=0; i<len-1; i++)
-		{
-			for(int j= i+1; j<len; j++)
-			{
-				if(strcmp(listPassenger[i].lastname, listPassenger[j].lastname)<0 || (strcmp(listPassenger[i].lastname, listPassenger[j].lastname) ==0 && listPassenger[i].typePassenger < listPassenger[j].typePassenger))
-				{
-					aux = listPassenger[i];
-					listPassenger[i] = listPassenger[j];
-					listPassenger[j] = aux;
-				}
-			}
-		}
-		todoOk = 1;
-		printPassengers(listPassenger,len);
-			break;
-	default:
-		printf("Opcion invalida \n");
-		break;
-	}
 	return todoOk;
 }
 
@@ -362,48 +350,38 @@ int sortPassengersByCode(sPassenger* listPassenger, int len, int order)
 {
 	int todoOk = 0;
 	sPassenger aux;
-
-	switch(menuOrder())
+	if(listPassenger != NULL && len>0)
 	{
-	case 1:
-		order = 1;
 		for(int i=0; i<len-1; i++)
 		{
 			for(int j= i+1; j<len; j++)
 			{
-
-				if(strcmp(listPassenger[i].flycode, listPassenger[j].flycode)>0 || (strcmp(listPassenger[i].flycode, listPassenger[j].flycode) ==0 && listPassenger[i].statusFlight > listPassenger[j].statusFlight))
+				if(order == 1)
 				{
-					aux = listPassenger[i];
-					listPassenger[i] = listPassenger[j];
-					listPassenger[j] = aux;
+					if((strcmp(listPassenger[i].flycode, listPassenger[j].flycode)>0) || (strcmp(listPassenger[i].flycode, listPassenger[j].flycode) ==0 && listPassenger[i].statusFlight > listPassenger[j].statusFlight))
+					{
+						aux = listPassenger[i];
+						listPassenger[i] = listPassenger[j];
+						listPassenger[j] = aux;
+					}
+				}
+				else
+				{
+					if(order == 0)
+					{
+						if((strcmp(listPassenger[i].flycode, listPassenger[j].flycode)<0) || (strcmp(listPassenger[i].flycode, listPassenger[j].flycode) ==0 && listPassenger[i].statusFlight < listPassenger[j].statusFlight))
+						{
+							aux = listPassenger[i];
+							listPassenger[i] = listPassenger[j];
+							listPassenger[j] = aux;
+						}
+					}
 				}
 			}
 		}
 		todoOk=1;
-		printPassengers(listPassenger,len);
-		break;
-	case 2:
-		order = 0;
-		for(int i=0; i<len-1; i++)
-		{
-			for(int j= i+1; j<len; j++)
-			{
-				if(strcmp(listPassenger[i].flycode, listPassenger[j].flycode)<0 || (strcmp(listPassenger[i].flycode, listPassenger[j].flycode) ==0 && listPassenger[i].statusFlight < listPassenger[j].statusFlight))
-				{
-					aux = listPassenger[i];
-					listPassenger[i] = listPassenger[j];
-					listPassenger[j] = aux;
-				}
-			}
-		}
-		todoOk = 1;
-		printPassengers(listPassenger,len);
-			break;
-	default:
-		printf("Opcion invalida \n");
-		break;
 	}
+	printPassengers(listPassenger,len);
 	return todoOk;
 }
 
@@ -415,8 +393,8 @@ void initListPassengers(sPassenger listPassenger[])
 						{1001,"Juan", "Perez", 67500.55, "BA75",1,1,1},
 						{1002,"Matias", "Rodriguez", 150000,"USA51",3,2,1},
 						{1003,"Maia", "Perez", 35000, "USA14",2,1,1},
-						{1004,"Leandro","Acosta",250600.60,"BA1",1,2,1},
-						{1005,"Agustina","Zaragoza",67500,"SPA1",3,1,1}
+						{1004,"Leandro","Acosta",250600.60,"BA75",1,2,1},
+						{1005,"Agustina","Zaragoza",67500,"JAP12",3,1,1}
 						};
 	for(int i=0; i<5; i++)
 	{
@@ -444,6 +422,118 @@ int flagReset(sPassenger listPassenger[], int len, int* flag)
 				*flag = 0;
 			}
 		}
+	}
+	return todoOk;
+}
+
+
+
+
+int subMenuInformation(sPassenger* listPassenger, int len)
+{
+	int todoOk=0;
+	int option;
+	int order;
+
+	if(listPassenger != NULL && len > 0)
+	{
+
+			printf("   1.Mostrar pasajeros ordenados por Apellido y tipo\n");
+		    printf("   2.Mostrar pasajeros ordenados por Codigo de vuelo y\n");
+		    printf("   3.Mostrar precio total y precio promedio de los pasajes \n");
+		    printf("   4.Mostrar pasajeros por codigo de vuelo y vuelo activo \n");
+
+
+		    printf("Ingrese opcion: ");
+		    scanf("%d", &option);
+
+		    switch(option)
+		    {
+		    case 1:
+		    	order = menuOrder();
+		    	sortPassengersByLastName(listPassenger, len,order);
+		    	break;
+		    case 2:
+		    	order = menuOrder();
+		    	sortPassengersByLastName(listPassenger,len,order);
+		    	break;
+		    case 3:
+		    	priceAcumulator(listPassenger,len);
+		    	break;
+		    case 4:
+		    	listPassengersFlyCodeAndStatus(listPassenger,len);
+		    	break;
+		    case 5:
+
+		    	break;
+		    default:
+		    	printf("Opcion invalida!!");
+		    	break;
+		    }
+	todoOk = 1;
+	}
+
+		    return todoOk;
+
+}
+
+int priceAcumulator(sPassenger* listPassenger,int len)
+{
+	int todoOk =0;
+	float acumulator = 0;
+	int acountant = 0;
+	float average =0;
+	int acountantHighPrice = 0;
+
+	if(listPassenger !=NULL && len>0)
+	{
+		for(int i=0; i<len; i++)
+		{
+			if(listPassenger[i].isEmpty == 1)
+			{
+				acumulator += listPassenger[i].price;
+				acountant++;
+				todoOk = 1;
+			}
+		}
+		if(acountant !=0)
+		{
+			average = acumulator/acountant;
+		}
+		else
+		{
+			printf("No se ingresaron empleados \n");
+		}
+
+		for(int i=0; i<len; i++)
+		{
+			if(listPassenger[i].isEmpty == 1 && listPassenger[i].price > average)
+			{
+				acountantHighPrice++;
+			}
+		}
+
+		printf("La suma total de sueldos es %.2f \n",acumulator);
+		printf("El promedio de sueldos es %.2f \n", average);
+		printf("Hay un total de pasajeros con un precio de pasaje mayor al promedio de %d",acountantHighPrice);
+	}
+	return todoOk;
+}
+
+int listPassengersFlyCodeAndStatus(sPassenger* listPassenger,int len)
+{
+	int todoOk=0;
+
+	if(listPassenger !=NULL && len>0)
+	{
+		for(int i=0; i<len;i++)
+		{
+			if(listPassenger[i].isEmpty == 1 && listPassenger[i].statusFlight == 1)
+			{
+				printOnePassenger(listPassenger[i]);
+			}
+		}
+
 	}
 	return todoOk;
 }

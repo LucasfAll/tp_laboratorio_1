@@ -171,6 +171,38 @@ void initListPassengers(sPassenger listPassenger[]);
  */
 int flagReset(sPassenger list[], int len, int* flag);
 
+/**
+ * @fn int subMenuInformation(sPassenger*, int)
+ * @brief Muestra el sub menu de informes
+ *
+ * @param listPassenger lista de pasajeros
+ * @param len tamaño de la lista
+ * @return
+ */
+int subMenuInformation(sPassenger* listPassenger, int len);
+
+
+/**
+ * @fn int priceAcumulator(sPassenger*, int)
+ * @brief Funcion que acumula salarios, cuenta pasajeros, calcula promedio
+ *
+ * @param listPassenger lista de pasajeros
+ * @param len tamaño de la lista
+ * @return retorna si hubo un error
+ */
+int priceAcumulator(sPassenger* listPassenger,int len);
+
+
+/**
+ * @fn int listPassengersFlyCodeAndStatus(sPassenger*, int)
+ * @brief Muestra a los pasajeros que tienen el vuelo activo
+ *
+ * @param listPassenger lista de pasajeros
+ * @param len tamño de la lista
+ * @return retorna si hubo un error
+ */
+int listPassengersFlyCodeAndStatus(sPassenger* listPassenger,int len);
+
 
 
 

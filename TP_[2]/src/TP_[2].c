@@ -27,7 +27,6 @@ int main(void) {
 
 	int option;
 	int nextId = 1;
-	int sense=0;
 	int flag=0;
 	int answerMenu;
 
@@ -40,7 +39,7 @@ int main(void) {
 
 	do
 	{
-		answerMenu = pedirEntero(&option,"\n======================\n|| Menu de Opciones ||      \n======================\n  ||Elegir opcion ||\n======================\n1.Alta pasajero\n2.Modificar pasajero\n3.Baja Pasajeros\n4.Informar Pasajeros\n5.Ordenar Pasajeros por Apellido \n6.Ordenar pasajeros por Codigo \n7.Carga forzada de datos \n8.Salir \n","Error opcion invalida!!!",1,8);
+		answerMenu = pedirEntero(&option,"\n======================\n|| Menu de Opciones ||      \n======================\n  ||Elegir opcion ||\n======================\n1.Alta pasajero\n2.Modificar pasajero\n3.Baja Pasajeros\n4.Informes\n5.Carga forzada de datos \n6.Salir \n","Error opcion invalida!!!",1,8);
 
 		if(answerMenu == 0)
 		{
@@ -100,52 +99,15 @@ int main(void) {
 						}
 						else
 						{
-							printPassengers(listPassengers,TAM);
+							subMenuInformation(listPassengers,TAM);
 						}
 						break;
 					case 5:
-						if(flag == 0)
-						{
-							printf("No hay pasajeros para ordenar \n");
-						}
-						else
-						{
-							if(sortPassengersByLastName(listPassengers,TAM,sense))
-							{
-								printf("Ordenamiento exitoso \n");
-							}
-							else
-							{
-								printf("Ocurrio un error al ordenar \n");
-							}
-						}
-						break;
-					case 6:
-						if(flag == 0)
-						{
-							printf("No hay pasajeros para ordenar \n");
-						}
-						else
-						{
-							if(sortPassengersByCode(listPassengers,TAM,sense))
-							{
-								printf("Ordenamiento exitoso \n");
-							}
-							else
-							{
-								printf("Ocurrio un error al ordenar \n");
-							}
-						}
-						break;
-					case 7:
 						initListPassengers(listPassengers);
 						printf("carga exitosa \n");
 						flag = 1;
 						break;
-					case 8:
-						break;
-					default:
-						printf("opcion invalida");
+					case 6:
 						break;
 					}
 
@@ -154,7 +116,7 @@ int main(void) {
 		}
 
 
-	}while(option !=8);
+	}while(option !=6);
 
 	return EXIT_SUCCESS;
 }
